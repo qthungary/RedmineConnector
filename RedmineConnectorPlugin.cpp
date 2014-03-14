@@ -11,7 +11,7 @@
 #include <QTranslator>
 #include <QtCore/QtPlugin>
 #include <QtCore/QLibraryInfo>
-#include <QtGui/QMainWindow>
+#include <QMainWindow>
 
 #include "MainMode.h"
 #include "MainWindow.h"
@@ -31,7 +31,7 @@ RedmineConnectorPlugin::~RedmineConnectorPlugin()
 }
 
 bool RedmineConnectorPlugin::initialize(const QStringList &arguments, QString *errorString)
-{    
+{
     Q_UNUSED(arguments)
     Q_UNUSED(errorString)
 

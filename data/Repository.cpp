@@ -77,7 +77,7 @@ void Repository::initialize()
 {
     this->cleanUp();
 
-    QUrl usersUrl(this->server() + QLatin1String("/users.xml?limit=100"));
+    QUrl usersUrl(this->server() /*+ QLatin1String("/users.xml?limit=100")*/);
     usersUrl.setUserName(this->username());
     usersUrl.setPassword(this->password());
 

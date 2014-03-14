@@ -10,11 +10,12 @@ namespace Internal {
 class RedmineConnectorPlugin : public ExtensionSystem::IPlugin
 {
     Q_OBJECT
-    
+    Q_PLUGIN_METADATA(IID "org.qt-project.ExtensionSystem.IPlugin")
+
 public:
     RedmineConnectorPlugin();
     ~RedmineConnectorPlugin();
-    
+
     bool initialize(const QStringList &arguments, QString *errorString);
     void extensionsInitialized();
     ShutdownFlag aboutToShutdown();

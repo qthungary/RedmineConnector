@@ -54,7 +54,9 @@ HEADERS +=\
 OTHER_FILES = RedmineConnector.pluginspec.in  \
 RedmineConnector_dependencies.pri
 
-
+greaterThan(QT_MAJOR_VERSION, 4){
+    QT += widgets
+}
 
 # Qt Creator linking
 
@@ -79,7 +81,9 @@ PROVIDER = kVibes
 include($$QTCREATOR_SOURCES/src/qtcreatorplugin.pri)
 include($$QTCREATOR_SOURCES/src/plugins/coreplugin/coreplugin_dependencies.pri)
 
-LIBS += -L$$IDE_PLUGIN_PATH/Nokia
+INCLUDEPATH += .
+
+LIBS += -L$$IDE_PLUGIN_PATH/QtProject
 
 FORMS += \
     MainWindow.ui \
