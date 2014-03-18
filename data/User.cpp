@@ -29,7 +29,7 @@ QString User::lastName()
 
 QString User::fullName()
 {
-    return QString::fromLatin1("%1 %2").arg(this->m_firstName).arg(this->m_lastName).trimmed();
+    return QString::fromUtf8("%1 %2").arg(this->m_firstName).arg(this->m_lastName).trimmed();
 }
 
 QString User::mail()

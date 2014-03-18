@@ -31,7 +31,7 @@ void TableItemProject::setIsCurrentItem(bool isCurrent)
     font.setBold(isCurrent);
     ui->labelProject->setFont(font);
     if( isCurrent ) {
-        ui->tableWidgetProject->setStyleSheet(QString::fromLatin1("background-color: rgba(200, 220, 255);"));
+        ui->tableWidgetProject->setStyleSheet(QString::fromUtf8("background-color: rgba(200, 220, 255);"));
     } else {
         ui->tableWidgetProject->setStyleSheet(QString());
     }

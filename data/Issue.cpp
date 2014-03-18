@@ -21,7 +21,7 @@ Issue::~Issue()
 
 void Issue::load()
 {
-    QUrl issueUrl(QString::fromLatin1("%1/issues/%2.xml?include=journals").arg(this->m_project->repository()->server()).arg(this->id()));
+    QUrl issueUrl(QString::fromUtf8("%1/issues/%2.xml?include=journals").arg(this->m_project->repository()->server()).arg(this->id()));
     issueUrl.setUserName(this->m_project->repository()->username());
     issueUrl.setPassword(this->m_project->repository()->password());
 
@@ -36,7 +36,7 @@ void Issue::issueReadyRead()
         return;
     }
 
-    QString msg = QString::fromLatin1(this->m_issueReply->readAll().constData());
+    QString msg = QString::fromUtf8(this->m_issueReply->readAll().constData());
     this->parseIssue(msg);
     emit ready(this);
 }
@@ -113,7 +113,7 @@ void Issue::parseIssue(QString xml)
                 }
             } else if( dnl.at(n).toElement().attribute(QLatin1String("property")).compare(QLatin1String("attachment")) == 0 ) {
                 QString filename = dnl.at(n).toElement().elementsByTagName(QLatin1String("new_value")).at(0).toElement().text();
-                QString url = QString::fromLatin1("%1/attachments/%2/%3")
+                QString url = QString::fromUtf8("%1/attachments/%2/%3")
                                 .arg(this->project()->repository()->server())
                                 .arg(dnl.at(n).toElement().attribute(QLatin1String("name")))
                                 .arg(filename);
@@ -149,23 +149,23 @@ void Issue::setChangeset(IssueStatus *status, Priority *priority, User *assigned
     QXmlStreamWriter stream(&xml);
     stream.writeStartDocument();
     stream.writeStartElement(QLatin1String("issue"));
-    stream.writeTextElement(QLatin1String("status_id"), QString::fromLatin1("%1").arg(status->id()));
+    stream.writeTextElement(QLatin1String("status_id"), QString::fromUtf8("%1").arg(status->id()));
     stream.writeTextElement(QLatin1String("notes"), notes);
-    stream.writeTextElement(QLatin1String("issue_status_id"), QString::fromLatin1("%1").arg(status->id()));
+    stream.writeTextElement(QLatin1String("issue_status_id"), QString::fromUtf8("%1").arg(status->id()));
     // stream.writeTextElement("priority_id", QString("%1").arg(priority->id()));
-    stream.writeTextElement(QLatin1String("assigned_to_id"), QString::fromLatin1("%1").arg(assignedTo->id()));
-    stream.writeTextElement(QLatin1String("tracker_id"), QString::fromLatin1("%1").arg(tracker.id));
-    QString categoryString = (category->id() == 0) ? QString() : QString::fromLatin1("%1").arg(category->id());
-    stream.writeTextElement(QLatin1String("category_id"), QString::fromLatin1("%1").arg(categoryString));
+    stream.writeTextElement(QLatin1String("assigned_to_id"), QString::fromUtf8("%1").arg(assignedTo->id()));
+    stream.writeTextElement(QLatin1String("tracker_id"), QString::fromUtf8("%1").arg(tracker.id));
+    QString categoryString = (category->id() == 0) ? QString() : QString::fromUtf8("%1").arg(category->id());
+    stream.writeTextElement(QLatin1String("category_id"), QString::fromUtf8("%1").arg(categoryString));
     stream.writeTextElement(QLatin1String("start_date"), startDate.toString(QLatin1String("yyyy-MM-dd")));
     if( dueDate.isValid() ) {
         stream.writeTextElement(QLatin1String("due_date"), dueDate.toString(QLatin1String("yyyy-MM-dd")));
     }
-    stream.writeTextElement(QLatin1String("done_ratio"), QString::fromLatin1("%1").arg(doneRatio));
+    stream.writeTextElement(QLatin1String("done_ratio"), QString::fromUtf8("%1").arg(doneRatio));
     stream.writeEndElement(); // issue
     stream.writeEndDocument();
 
-    QUrl issuePutUrl(QString::fromLatin1("%1/issues/%2.xml").arg(this->m_project->repository()->server()).arg(this->id()));
+    QUrl issuePutUrl(QString::fromUtf8("%1/issues/%2.xml").arg(this->m_project->repository()->server()).arg(this->id()));
     issuePutUrl.setUserName(this->m_project->repository()->username());
     issuePutUrl.setPassword(this->m_project->repository()->password());
 

@@ -18,7 +18,7 @@ Settings::Settings(QObject *parent) :
 
     _instance = this;
     if( QSettings *settings = Core::ICore::instance()->settings() ) {
-        settings->beginGroup(QString::fromLatin1(Constants::SETTINGS_CATEGORY));
+        settings->beginGroup(QString::fromUtf8(Constants::SETTINGS_CATEGORY));
         int size = settings->beginReadArray(QLatin1String("Repositories"));
         for( int i=0 ; i<size ; i++ ) {
             SettingsRepository r;

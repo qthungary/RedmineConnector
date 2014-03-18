@@ -21,13 +21,13 @@ void IssueDetailWidget::setAuthor(QString author)
 
 void IssueDetailWidget::setNotes(QString notes, QList<QString> details)
 {
-    QString d = QString::fromLatin1("<ul>");
+    QString d = QString::fromUtf8("<ul>");
     foreach( QString detail, details) {
-        d.append(QString::fromLatin1("<li>") + detail + QString::fromLatin1("</li>"));
+        d.append(QString::fromUtf8("<li>") + detail + QString::fromUtf8("</li>"));
     }
-    d.append(QString::fromLatin1("</ul>"));
+    d.append(QString::fromUtf8("</ul>"));
 
-    ui->notes->setText(d + notes.replace(QString::fromLatin1("\n"), QString::fromLatin1("<br />")));
+    ui->notes->setText(d + notes.replace(QString::fromUtf8("\n"), QString::fromUtf8("<br />")));
 }
 
 void IssueDetailWidget::setDateTime(QDateTime dateTime)

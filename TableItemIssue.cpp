@@ -45,10 +45,10 @@ void TableItemIssue::setIssue(RedmineConnector::Issue *issue)
 {
     this->m_issue = issue;
 
-    ui->issueId->setText(QString::fromLatin1("#%1").arg(issue->id()));
+    ui->issueId->setText(QString::fromUtf8("#%1").arg(issue->id()));
     ui->subject->setText(issue->subject());
     ui->status->setText(issue->issueStatus()->name());
-    ui->assignedTo->setText(QString::fromLatin1("%1 %2").arg(issue->assignedTo()->firstName()).arg(issue->assignedTo()->lastName()).trimmed());
+    ui->assignedTo->setText(QString::fromUtf8("%1 %2").arg(issue->assignedTo()->firstName()).arg(issue->assignedTo()->lastName()).trimmed());
     ui->updated->setText(issue->updatedOn().date().toString(Qt::SystemLocaleShortDate));
 
     if( !issue->dueDate().isValid() ) {

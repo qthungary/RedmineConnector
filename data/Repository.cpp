@@ -90,7 +90,7 @@ void Repository::initialize()
 void Repository::authRequired(QNetworkReply *reply, QAuthenticator *auth)
 {
     NetworkAuthDialog dlg;
-    dlg.setSitename(QString::fromLatin1("%1 @ %2").arg(auth->realm()).arg(reply->url().host()));
+    dlg.setSitename(QString::fromUtf8("%1 @ %2").arg(auth->realm()).arg(reply->url().host()));
     dlg.setUsername(reply->url().userName());
     dlg.setPassword(reply->url().password());
     if( dlg.exec() == QDialog::Accepted ) {
@@ -112,7 +112,7 @@ void Repository::usersReadyRead()
         return;
     }
 
-    QString msg = QString::fromLatin1(this->m_usersReply->readAll().constData());
+    QString msg = QString::fromUtf8(this->m_usersReply->readAll().constData());
     this->parseUsers(msg);
 
     QUrl issueStatusesUrl(this->server() + QLatin1String("/issue_statuses.xml"));
@@ -135,7 +135,7 @@ void Repository::issueStatusesReadyRead()
         return;
     }
 
-    QString msg = QString::fromLatin1(this->m_issueStatusesReply->readAll().constData());
+    QString msg = QString::fromUtf8(this->m_issueStatusesReply->readAll().constData());
     this->parseIssueStatuses(msg);
 
     QUrl projectsUrl(this->server() + QLatin1String("/projects.xml?limit=100"));
@@ -158,7 +158,7 @@ void Repository::projectsReadyRead()
         return;
     }
 
-    QString msg = QString::fromLatin1(this->m_projectsReply->readAll().constData());
+    QString msg = QString::fromUtf8(this->m_projectsReply->readAll().constData());
     this->parseProjects(msg);
     for( int i=0, n=this->m_projects.size() ; i<n ; i++ ) {
         this->m_projects[i]->initialize();

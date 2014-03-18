@@ -65,7 +65,7 @@ void Project::initialize()
 {
     this->cleanUp();
 
-    QUrl projectUrl(this->m_repository->server() + QString::fromLatin1("/projects/%1.xml?include=trackers,issue_categories").arg(this->id()));
+    QUrl projectUrl(this->m_repository->server() + QString::fromUtf8("/projects/%1.xml?include=trackers,issue_categories").arg(this->id()));
     projectUrl.setUserName(this->m_repository->username());
     projectUrl.setPassword(this->m_repository->password());
 
@@ -85,10 +85,10 @@ void Project::projectReadyRead()
         return;
     }
 
-    QString msg = QString::fromLatin1(this->m_projectReply->readAll().constData());
+    QString msg = QString::fromUtf8(this->m_projectReply->readAll().constData());
     this->parseProject(msg);
 
-    QUrl issuesUrl(this->m_repository->server() + QString::fromLatin1("/projects/%1/issues.xml?limit=100").arg(this->id()));
+    QUrl issuesUrl(this->m_repository->server() + QString::fromUtf8("/projects/%1/issues.xml?limit=100").arg(this->id()));
     issuesUrl.setUserName(this->m_repository->username());
     issuesUrl.setPassword(this->m_repository->password());
 
@@ -108,7 +108,7 @@ void Project::issuesReadyRead()
         return;
     }
 
-    QString msg = QString::fromLatin1(this->m_issuesReply->readAll().constData());
+    QString msg = QString::fromUtf8(this->m_issuesReply->readAll().constData());
     this->parseIssues(msg);
     this->m_ready = true;
     emit ready(this->id(), false);

@@ -146,7 +146,7 @@ void MainWindow::showIssue(Issue *issue)
 {
     this->m_currentIssue = issue;
 
-    ui->subject->setText(QString::fromLatin1("#%1 %2").arg(issue->id()).arg(issue->subject()));
+    ui->subject->setText(QString::fromUtf8("#%1 %2").arg(issue->id()).arg(issue->subject()));
     ui->dateDueTo->setDate((issue->dueDate().isValid()) ? issue->dueDate() : QDate::currentDate());
     this->m_currentIssueHasDueDate = issue->dueDate().isValid();
     ui->dateStarted->setDate((issue->startDate().isValid()) ? issue->startDate() : QDate::currentDate());
@@ -181,7 +181,7 @@ void MainWindow::showIssue(Issue *issue)
     ui->comboAssignedTo->clear();
     QList<User*> users = issue->project()->repository()->users();
     for( int i=0, n=users.size() ; i<n ; i++ ) {
-        ui->comboAssignedTo->addItem(QString::fromLatin1("%1 %2").arg(users.at(i)->firstName()).arg(users.at(i)->lastName()), users.at(i)->id());
+        ui->comboAssignedTo->addItem(QString::fromUtf8("%1 %2").arg(users.at(i)->firstName()).arg(users.at(i)->lastName()), users.at(i)->id());
         if( users.at(i)->id() == issue->assignedTo()->id() ) {
             ui->comboAssignedTo->setCurrentIndex(i);
         }
