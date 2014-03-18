@@ -38,7 +38,7 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->labelIssues->setFont(font);
     ui->labelProjects->setFont(font);
 
-    QMovie *movie = new QMovie(QLatin1String(":/img/ajax-loader-1.gif"));
+    QMovie *movie = new QMovie(QString::fromUtf8(":/img/ajax-loader-1.gif"));
     ui->labelLoading->setMovie(movie);
     movie->start();
 
@@ -166,7 +166,7 @@ void MainWindow::showIssue(Issue *issue)
     QList<IssueDetail> issueDetails = issue->issueDetails();
     foreach( IssueDetail detail, issueDetails ) {
         IssueDetailWidget *issueDetailWidget = new IssueDetailWidget(this);
-        issueDetailWidget->setAuthor(detail.user->firstName() + QLatin1String(" ") + detail.user->lastName());
+        issueDetailWidget->setAuthor(detail.user->firstName() + QString::fromUtf8(" ") + detail.user->lastName());
         issueDetailWidget->setDateTime(detail.createdOn);
         issueDetailWidget->setNotes(detail.notes, detail.details);
         issueDetailWidget->setIsTopElement(false);

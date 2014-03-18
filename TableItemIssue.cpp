@@ -35,7 +35,7 @@ void TableItemIssue::setIsCurrentItem(bool isCurrent)
     font.setBold(isCurrent);
     ui->subject->setFont(font);
     if( isCurrent ) {
-        ui->tableWidgetIssue->setStyleSheet(QLatin1String("background-color: rgba(200, 220, 255);"));
+        ui->tableWidgetIssue->setStyleSheet(QString::fromUtf8("background-color: rgba(200, 220, 255);"));
     } else {
         ui->tableWidgetIssue->setStyleSheet(QString());
     }
@@ -63,13 +63,13 @@ void TableItemIssue::setIssue(RedmineConnector::Issue *issue)
     }
 
     if( daysTo > 7 ) {
-        ui->due->setStyleSheet(QLatin1String("color: rgb(170, 170, 170);"));
+        ui->due->setStyleSheet(QString::fromUtf8("color: rgb(170, 170, 170);"));
     } else if( daysTo > 3 ) {
-        ui->due->setStyleSheet(QLatin1String("color: rgb(40, 158, 65);"));
+        ui->due->setStyleSheet(QString::fromUtf8("color: rgb(40, 158, 65);"));
     } else if( daysTo > 1 ) {
-        ui->due->setStyleSheet(QLatin1String("color: rgb(255, 160, 35);"));
+        ui->due->setStyleSheet(QString::fromUtf8("color: rgb(255, 160, 35);"));
     } else {
-        ui->due->setStyleSheet(QLatin1String("color: rgb(255, 0, 0);"));
+        ui->due->setStyleSheet(QString::fromUtf8("color: rgb(255, 0, 0);"));
     }
 }
 

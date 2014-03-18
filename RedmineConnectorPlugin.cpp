@@ -38,9 +38,9 @@ bool RedmineConnectorPlugin::initialize(const QStringList &arguments, QString *e
     const QString &locale = Core::ICore::instance()->userInterfaceLanguage();
     if (!locale.isEmpty()) {
         QTranslator *translator = new QTranslator(this);
-        const QString &creatorTrPath = Core::ICore::instance()->resourcePath() + QLatin1String("/translations");
+        const QString &creatorTrPath = Core::ICore::instance()->resourcePath() + QString::fromUtf8("/translations");
         const QString &qtTrPath = QLibraryInfo::location(QLibraryInfo::TranslationsPath);
-        const QString &trFile = QLatin1String("RedmineConnector_") + locale;
+        const QString &trFile = QString::fromUtf8("RedmineConnector_") + locale;
         if( translator->load(trFile, qtTrPath) || translator->load(trFile, creatorTrPath) ) {
             qApp->installTranslator(translator);
         }

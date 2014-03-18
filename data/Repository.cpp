@@ -77,7 +77,7 @@ void Repository::initialize()
 {
     this->cleanUp();
 
-    QUrl usersUrl(this->server() /*+ QLatin1String("/users.xml?limit=100")*/);
+    QUrl usersUrl(this->server() +  QString::fromUtf8("/users.xml")/*+ QString::fromUtf8("/users.xml?limit=100")*/);
     usersUrl.setUserName(this->username());
     usersUrl.setPassword(this->password());
 
@@ -115,7 +115,7 @@ void Repository::usersReadyRead()
     QString msg = QString::fromUtf8(this->m_usersReply->readAll().constData());
     this->parseUsers(msg);
 
-    QUrl issueStatusesUrl(this->server() + QLatin1String("/issue_statuses.xml"));
+    QUrl issueStatusesUrl(this->server() + QString::fromUtf8("/issue_statuses.xml"));
     issueStatusesUrl.setUserName(this->username());
     issueStatusesUrl.setPassword(this->password());
 
@@ -138,7 +138,7 @@ void Repository::issueStatusesReadyRead()
     QString msg = QString::fromUtf8(this->m_issueStatusesReply->readAll().constData());
     this->parseIssueStatuses(msg);
 
-    QUrl projectsUrl(this->server() + QLatin1String("/projects.xml?limit=100"));
+    QUrl projectsUrl(this->server() + QString::fromUtf8("/projects.xml?limit=100"));
     projectsUrl.setUserName(this->username());
     projectsUrl.setPassword(this->password());
 
@@ -197,6 +197,7 @@ void Repository::projectReady(int projectId, bool error)
 
 void Repository::parseUsers(QString xml)
 {
+   // QMessageBox::information(0,tr("parseUsers"),tr("%1").arg(xml),QMessageBox::Ok,QMessageBox::Ok);
     // create an empty user
     User *eU = new User(this);
     eU->setFirstName(QString());
@@ -207,13 +208,13 @@ void Repository::parseUsers(QString xml)
 
     QDomDocument domDoc;
     domDoc.setContent(xml);
-    QDomNodeList nl = domDoc.elementsByTagName(QLatin1String("user"));
+    QDomNodeList nl = domDoc.elementsByTagName(QString::fromUtf8("user"));
     for( int i=0, n=nl.count() ; i<n ; i++ ) {
         User *u = new User(this);
-        u->setId(nl.at(i).toElement().elementsByTagName(QLatin1String("id")).at(0).toElement().text().toInt());
-        u->setFirstName(nl.at(i).toElement().elementsByTagName(QLatin1String("firstname")).at(0).toElement().text());
-        u->setLastName(nl.at(i).toElement().elementsByTagName(QLatin1String("lastname")).at(0).toElement().text());
-        u->setMail(nl.at(i).toElement().elementsByTagName(QLatin1String("mail")).at(0).toElement().text());
+        u->setId(nl.at(i).toElement().elementsByTagName(QString::fromUtf8("id")).at(0).toElement().text().toInt());
+        u->setFirstName(nl.at(i).toElement().elementsByTagName(QString::fromUtf8("firstname")).at(0).toElement().text());
+        u->setLastName(nl.at(i).toElement().elementsByTagName(QString::fromUtf8("lastname")).at(0).toElement().text());
+        u->setMail(nl.at(i).toElement().elementsByTagName(QString::fromUtf8("mail")).at(0).toElement().text());
         this->m_users.append(u);
     }
 }
@@ -222,11 +223,11 @@ void Repository::parseIssueStatuses(QString xml)
 {
     QDomDocument domDoc;
     domDoc.setContent(xml);
-    QDomNodeList nl = domDoc.elementsByTagName(QLatin1String("issue_status"));
+    QDomNodeList nl = domDoc.elementsByTagName(QString::fromUtf8("issue_status"));
     for( int i=0, n=nl.count() ; i<n ; i++ ) {
         IssueStatus *is = new IssueStatus(this);
-        is->setId(nl.at(i).toElement().elementsByTagName(QLatin1String("id")).at(0).toElement().text().toInt());
-        is->setName(nl.at(i).toElement().elementsByTagName(QLatin1String("name")).at(0).toElement().text());
+        is->setId(nl.at(i).toElement().elementsByTagName(QString::fromUtf8("id")).at(0).toElement().text().toInt());
+        is->setName(nl.at(i).toElement().elementsByTagName(QString::fromUtf8("name")).at(0).toElement().text());
         this->m_issueStatuses.append(is);
     }
 }
@@ -235,13 +236,13 @@ void Repository::parseProjects(QString xml)
 {
     QDomDocument domDoc;
     domDoc.setContent(xml);
-    QDomNodeList nl = domDoc.elementsByTagName(QLatin1String("project"));
+    QDomNodeList nl = domDoc.elementsByTagName(QString::fromUtf8("project"));
     for( int i=0, n=nl.count() ; i<n ; i++ ) {
         Project *p = new Project(this);
-        p->setId(nl.at(i).toElement().elementsByTagName(QLatin1String("id")).at(0).toElement().text().toInt());
-        p->setName(nl.at(i).toElement().elementsByTagName(QLatin1String("name")).at(0).toElement().text());
-        p->setIdentifier(nl.at(i).toElement().elementsByTagName(QLatin1String("identifier")).at(0).toElement().text());
-        p->setDescription(nl.at(i).toElement().elementsByTagName(QLatin1String("description")).at(0).toElement().text());
+        p->setId(nl.at(i).toElement().elementsByTagName(QString::fromUtf8("id")).at(0).toElement().text().toInt());
+        p->setName(nl.at(i).toElement().elementsByTagName(QString::fromUtf8("name")).at(0).toElement().text());
+        p->setIdentifier(nl.at(i).toElement().elementsByTagName(QString::fromUtf8("identifier")).at(0).toElement().text());
+        p->setDescription(nl.at(i).toElement().elementsByTagName(QString::fromUtf8("description")).at(0).toElement().text());
         this->m_projects.append(p);
     }
 }
