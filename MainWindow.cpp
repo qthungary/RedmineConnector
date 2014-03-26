@@ -89,7 +89,6 @@ void MainWindow::repositoriesReady()
     for( int i=0, n=ui->tableProjects->rowCount() ; i<n ; i++ ) {
         height += ui->tableProjects->rowHeight(i);
     }
-    ui->tableProjects->setFixedHeight(height+22);
 
     ui->buttonReloadProjects->setText(tr("Refresh"));
     ui->buttonReloadProjects->setEnabled(true);
